@@ -15,7 +15,12 @@ return new class extends Migration
     {
         Schema::create('pastries', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('title');
+            $table->text('details');
+            $table->text('notes');
+            $table->string('image');
+            $table->timestamp();
+
         });
     }
 
