@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\pastriesController;
+use App\Http\Controllers\TestController;
+use App\Http\Controllers\PastriesController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -16,5 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route:: get ( '/pastries', [pastriesController::class, 'show'])->name('pastries') ;
+Route::get('/', [TestController::class, 'index'])->name('home');
+Auth::routes();
+Route:: resource( '/pastries', PastriesController::class);
+Route::get('/pastries/create', [PastriesController::class, 'create']);
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -20,7 +20,6 @@ return new class extends Migration
             $table->text('notes');
             $table->string('image');
             $table->timestamps();
-
         });
     }
 

@@ -1,13 +1,22 @@
-@extends('web')
-
-@section('title')
-    {{$title}}
-@endsection
+@extends('layouts.app')
 
 @section('content')
-    <h1>{{$title}}</h1>
-    <a href="{{route('pastries')}}">Pastries</a>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1>Welkom!</h1>
+            <div class="card">
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                    <a href="{{route('pastries')}}">Pastries</a>
 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
-
-
