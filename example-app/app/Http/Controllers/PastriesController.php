@@ -14,7 +14,7 @@ class PastriesController extends Controller
      */
     public function index()
     {
-        $title = ":)";
+        $title = "Pastries :)";
         $pastries = Pastry::all();
         Return view( 'pastries', compact( 'title'), ['pastries'=>$pastries]);
     }
@@ -33,11 +33,19 @@ class PastriesController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        //validatie
+        $request->validate([
+            'title'=> 'required',
+            'details'=> 'required',
+            'notes'=>'required',
+            'image'=>'required'
+        ]);
+        Pastry::create($request->all());
+        return redirect()->route('pastry.index');
     }
 
     /**
@@ -80,8 +88,9 @@ class PastriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Pastry $pastry)
     {
-        //
+        $pastry->delete();
+        return redirect('pastries.index')->with('message','verwijderd');
     }
 }

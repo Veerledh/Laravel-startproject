@@ -9,7 +9,7 @@ class PastriesTestController extends Controller
 {
     Public function show()
     {
-        $title = ":)";
+        $title = "Pastries :)";
         $pastries = Pastry::all();
         Return view( 'pastries', compact( 'title'), ['pastries'=>$pastries]);
 	}

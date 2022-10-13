@@ -12,8 +12,8 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <a href="{{route('pastries')}}">Pastries</a>
-
+                    <a href="{{route('pastries.create')}}">create</a>
+                    <a href="{{route('pastries.index')}}">Pastries</a>
                 </div>
             </div>
         </div>

@@ -17,9 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [TestController::class, 'index'])->name('home');
-Auth::routes();
 Route:: resource( '/pastries', PastriesController::class);
-Route::get('/pastries/create', [PastriesController::class, 'create']);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
