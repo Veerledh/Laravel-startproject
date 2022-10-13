@@ -10,7 +10,7 @@ class PastriesController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index()
     {
@@ -22,7 +22,7 @@ class PastriesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
     {
@@ -45,7 +45,7 @@ class PastriesController extends Controller
             'image'=>'required'
         ]);
         Pastry::create($request->all());
-        return redirect()->route('pastry.index');
+        return redirect()->route('pastries.index');
     }
 
     /**
@@ -86,11 +86,11 @@ class PastriesController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy(Pastry $pastry)
     {
         $pastry->delete();
-        return redirect('pastries.index')->with('message','verwijderd');
+        return redirect('pastries')->with('message','verwijderd');
     }
 }

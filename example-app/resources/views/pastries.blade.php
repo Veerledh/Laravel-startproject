@@ -31,7 +31,14 @@
                         <td class="col-sm-3"> <img class="img-fluid" src="{{$pastry->image}}"></td>
                         <td><a class="btn btn-success">Details</a></td>
                         <td><a class="btn btn-primary">Wijzigen</a></td>
-                        <td><a class="btn btn-danger">{{'pastries.destroy}}</a></td>
+                        <td>
+                            <form action="{{route('pastries.destroy', $pastry->id)}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+
+                                <button class="btn btn-danger btn-sm" type="submit">Verwijderen</button>
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
             </table>
