@@ -14,9 +14,8 @@ class PastriesController extends Controller
      */
     public function index()
     {
-        $title = "Pastries :)";
         $pastries = Pastry::all();
-        Return view( 'pastries', compact( 'title'), ['pastries'=>$pastries]);
+        Return view( 'pastries.index', ['pastries'=>$pastries]);
     }
 
     /**
@@ -61,6 +60,22 @@ class PastriesController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function search(Request $request)
+    {
+        $pastries = Pastry::where('title', 'like', '%' . $request->other . '%')
+            ->orWhere('notes', 'like', '%' . $request->other . '%')
+            ->orWhere('details', 'like', '%' . $request->other . '%')
+            ->get();
+        return view('pastries', compact('pastries'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -93,7 +108,7 @@ class PastriesController extends Controller
         $pastries->notes = $request->get('notes');
         $pastries->Image = $request->get('image');
         $pastries->save();
-        return redirect('pastries')->with('success', 'pastry edited.');
+        return redirect('pastries.index')->with('success', 'pastry edited.');
     }
 
     /**
@@ -105,6 +120,6 @@ class PastriesController extends Controller
     public function destroy(Pastry $pastry)
     {
         $pastry->delete();
-        return redirect('pastries')->with('message','verwijderd');
+        return redirect('pastries.index')->with('message','verwijderd');
     }
 }
