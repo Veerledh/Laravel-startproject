@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Pastry;
 use Illuminate\Http\Request;
 
@@ -10,12 +11,17 @@ class PastriesController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
      */
-    public function index()
+    public function index(Request $request)
     {
-        $pastries = Pastry::all();
-        Return view( 'pastries.index', ['pastries'=>$pastries]);
+        if ($request->has('category')){
+            $pastries = Pastry::where('category_id', '=', $request->query('category'))->get();
+        } else {
+            $pastries = Pastry::all();
+        }
+        $pastryCategories = Category::all();
+        Return view( 'pastries', ['pastries'=>$pastries, 'categories' => $pastryCategories]);
     }
 
     /**
@@ -25,7 +31,8 @@ class PastriesController extends Controller
      */
     public function create()
     {
-        return view('pastries.create');
+        $pastryCategories = Category::all();
+        return view('pastries.create', ['categories' => $pastryCategories]);
     }
 
     /**
@@ -38,13 +45,14 @@ class PastriesController extends Controller
     {
         //validatie
         $request->validate([
+            'category_id'=>'required',
             'title'=> 'required',
             'details'=> 'required',
             'notes'=>'required',
             'image'=>'required'
         ]);
         Pastry::create($request->all());
-        return redirect()->route('pastries.index');
+        return redirect()->route('pastries');
     }
 
     /**
@@ -72,7 +80,8 @@ class PastriesController extends Controller
             ->orWhere('notes', 'like', '%' . $request->other . '%')
             ->orWhere('details', 'like', '%' . $request->other . '%')
             ->get();
-        return view('pastries', compact('pastries'));
+        $pastryCategories = Category::all();
+        return view('pastries', compact('pastries'), ['categories' => $pastryCategories]);
     }
 
     /**
@@ -84,7 +93,8 @@ class PastriesController extends Controller
     public function edit($id)
     {
         $pastries = $id;
-        return view('pastries.edit',['pastries' => Pastry:: find($id)]);
+        $pastryCategories = Category::all();
+        return view('pastries.edit',['pastries' => Pastry:: find($id), 'categories' => $pastryCategories]);
     }
 
     /**
@@ -97,18 +107,20 @@ class PastriesController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+            'category_id'=> 'required',
             'title'=> 'required',
             'details'=> 'required',
             'notes'=>'required',
             'image'=>'required'
         ]);
         $pastries = Pastry::find($id);
+        $pastries->category_id =  $request->get('category_id');
         $pastries->title =  $request->get('title');
         $pastries->details = $request->get('details');
         $pastries->notes = $request->get('notes');
-        $pastries->Image = $request->get('image');
+        $pastries->image = $request->get('image');
         $pastries->save();
-        return redirect('pastries.index')->with('success', 'pastry edited.');
+        return redirect('pastries')->with('success', 'pastry edited.');
     }
 
     /**
@@ -120,6 +132,6 @@ class PastriesController extends Controller
     public function destroy(Pastry $pastry)
     {
         $pastry->delete();
-        return redirect('pastries.index')->with('message','verwijderd');
+        return redirect('pastries')->with('message','verwijderd');
     }
 }

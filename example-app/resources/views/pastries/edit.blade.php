@@ -14,6 +14,19 @@
                     @method('PUT')
                     @csrf
                     <div class="m-2">
+                        <label for="category_id" class="form-label">Kies een baksel:</label>
+                        <select id="category_id"
+                                name="category_id"
+                                class="@error('category_id') is-invalid @enderror form-select">
+                            @foreach($categories as $category)
+                                <option value="{{$category->id}}" class="dropdown-item">{{$category->name}}</option>
+                            @endforeach
+                        </select>
+                        @error('category_id')
+                        <span class="">{{$message}}</span>
+                        @enderror
+                    </div>
+                    <div class="m-2">
                         <label for="title" class="form-label">Naam pastry</label>
                         <input id="title"
                                type="text"

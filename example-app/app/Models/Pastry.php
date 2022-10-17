@@ -8,7 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Pastry extends Model
 {
     use HasFactory;
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
     protected $fillable = [
+        'category_id',
         'title',
         'details',
         'notes',

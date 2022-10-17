@@ -15,8 +15,14 @@
                 <form action="{{route('pastries.search')}}" method="post">
                     @csrf
                     <input type="text" name="other">
-                    <input name="submit" type="submit" class="btn btn-primary"/>
+                    <input name="submit" type="submit" value="search" class="btn btn-primary"/>
                 </form>
+                <div class="m-2">
+                    @foreach($categories as $category)
+                        <a href="{{route('pastries.index', ['category' => $category->id])}}"
+                           class="btn btn-primary btn-sm">{{$category->name}}</a>
+                    @endforeach
+                </div>
                 <br><br>
                 <div class="card">
                     <table class="table">
