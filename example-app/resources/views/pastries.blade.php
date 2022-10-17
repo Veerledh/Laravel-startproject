@@ -28,9 +28,9 @@
                         <td>{{$pastry->title}}</td>
                         <td>{{$pastry->details}}</td>
                         <td>{{$pastry->notes}}</td>
-                        <td class="col-sm-3"> <img class="img-fluid" src="{{$pastry->image}}"></td>
-                        <td><a class="btn btn-success">Details</a></td>
-                        <td><a class="btn btn-primary">Wijzigen</a></td>
+                        <td>{{$pastry->image}}</td>
+                        <td><a href="{{route('pastries.show', $pastry->id)}}" class="btn btn-success">Details</a></td>
+                        <td><a href="{{route('pastries.edit', $pastry->id)}}" class="btn btn-primary">Edit</a></td>
                         <td>
                             <form action="{{route('pastries.destroy', $pastry->id)}}" method="POST">
                                 @csrf

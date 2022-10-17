@@ -56,7 +56,8 @@ class PastriesController extends Controller
      */
     public function show($id)
     {
-
+        $pastry = $id;
+        return view('pastries.details', ['pastry' => pastry::find($id)]);
     }
 
     /**
@@ -67,7 +68,8 @@ class PastriesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pastries = $id;
+        return view('pastries.edit',['pastries' => Pastry:: find($id)]);
     }
 
     /**
@@ -79,7 +81,19 @@ class PastriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title'=> 'required',
+            'details'=> 'required',
+            'notes'=>'required',
+            'image'=>'required'
+        ]);
+        $pastries = Pastry::find($id);
+        $pastries->title =  $request->get('title');
+        $pastries->details = $request->get('details');
+        $pastries->notes = $request->get('notes');
+        $pastries->Image = $request->get('image');
+        $pastries->save();
+        return redirect('pastries')->with('success', 'pastry edited.');
     }
 
     /**

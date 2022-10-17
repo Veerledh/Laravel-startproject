@@ -6,11 +6,12 @@
 
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h1>Create pastries</h1>
+            <h1>edit pastries</h1>
             <a href="{{route('home')}}">Home</a>
             <a href="{{route('pastries.index')}}">pastries</a>
             <div class="card">
-                <form action="{{route('pastries.store')}}" method="post">
+                <form action="{{route('pastries.update', [$pastries->id])}}" method="post">
+                    @method('PUT')
                     @csrf
                     <div class="m-2">
                         <label for="title" class="form-label">Naam pastry</label>
@@ -18,7 +19,7 @@
                                type="text"
                                name="title"
                                class="@error('text') is-invalid @enderror form-control"
-                               value="{{ old('title') }}"/>
+                               value="{{$pastries->title}}"/>
                         @error('title')
                         <span class="">{{ $message }}</span>
                         @enderror
@@ -29,7 +30,7 @@
                                type="text"
                                name="details"
                                class="@error('details') is-invalid @enderror form-control"
-                               value="{{ old('details') }}"/>
+                               value="{{$pastries->details}}"/>
                         @error('details')
                         <span class="">{{ $message }}</span>
                         @enderror
@@ -40,7 +41,7 @@
                                type="text"
                                name="notes"
                                class="@error('notes') is-invalid @enderror form-control"
-                               value="{{ old('notes') }}"/>
+                               value="{{$pastries->notes}}"/>
                         @error('notes')
                         <span class="">{{ $message }}</span>
                         @enderror
@@ -51,7 +52,7 @@
                                type="text"
                                name="image"
                                class="@error('image') is-invalid @enderror form-control"
-                               value="{{ old('image') }}" />
+                               value="{{$pastries->image}}" />
                         @error('image')
                         <span class="">{{ $message }}</span>
                         @enderror
@@ -59,9 +60,9 @@
                     <div class="m-2">
                         <input name="submit" type="submit" class="btn btn-primary"/>
                     </div>
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
     </div>
 @endsection
 
