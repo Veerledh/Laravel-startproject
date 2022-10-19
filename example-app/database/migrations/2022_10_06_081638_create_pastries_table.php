@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('category_id')->constrained();
             $table->string('title');
-            $table->text('details');
+            $table->text('recipe');
             $table->text('notes');
             $table->string('image')->nullable();
             $table->timestamps();

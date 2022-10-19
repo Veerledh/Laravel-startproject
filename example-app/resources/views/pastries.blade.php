@@ -28,7 +28,6 @@
                     <table class="table">
                         <tr>
                             <th>title</th>
-                            <th>details</th>
                             <th>notes</th>
                             <th>image</th>
                             <th></th>
@@ -38,11 +37,9 @@
                         @foreach($pastries as $pastry)
                             <tr>
                                 <td>{{$pastry->title}}</td>
-                                <td>{{$pastry->details}}</td>
                                 <td>{{$pastry->notes}}</td>
-                                <td>{{$pastry->image}}</td>
-                                <td><a href="{{route('pastries.show', $pastry->id)}}"
-                                       class="btn btn-success">Details</a></td>
+                                <td><img src="{{ asset('storage/image/'.$pastry->image) }}" width="200"/></td>
+                                <td><a href="{{route('pastries.show', $pastry->id)}}" class="btn btn-success">Details</a></td>
                                 <td><a href="{{route('pastries.edit', $pastry->id)}}" class="btn btn-primary">Edit</a>
                                 </td>
                                 <td>

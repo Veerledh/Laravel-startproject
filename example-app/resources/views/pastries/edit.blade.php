@@ -6,7 +6,7 @@
 
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h1>edit pastries</h1>
+            <h1>Edit pastries</h1>
             <a href="{{route('home')}}">Home</a>
             <a href="{{route('pastries.index')}}">pastries</a>
             <div class="card">
@@ -38,13 +38,13 @@
                         @enderror
                     </div>
                     <div class="m-2">
-                        <label for="details" class="form-label">Details</label>
-                        <input id="details"
+                        <label for="recipe" class="form-label">Recept</label>
+                        <input id="recipe"
                                type="text"
-                               name="details"
-                               class="@error('details') is-invalid @enderror form-control"
-                               value="{{$pastries->details}}"/>
-                        @error('details')
+                               name="recipe"
+                               class="@error('recipe') is-invalid @enderror form-control"
+                               value="{{$pastries->recipe}}"/>
+                        @error('recipe')
                         <span class="">{{ $message }}</span>
                         @enderror
                     </div>
@@ -59,13 +59,24 @@
                         <span class="">{{ $message }}</span>
                         @enderror
                     </div>
+{{--                    <div class="m-2">--}}
+{{--                        <label for="image" class="form-label">image</label>--}}
+{{--                        <input id="image"--}}
+{{--                               type="text"--}}
+{{--                               name="image"--}}
+{{--                               class="@error('image') is-invalid @enderror form-control"--}}
+{{--                               value="{{$pastries->image}}" />--}}
+{{--                        @error('image')--}}
+{{--                        <span class="">{{ $message }}</span>--}}
+{{--                        @enderror--}}
+{{--                    </div>--}}
                     <div class="m-2">
                         <label for="image" class="form-label">image</label>
-                        <input id="image"
-                               type="text"
+                        <input id="file"
+                               type="file"
                                name="image"
                                class="@error('image') is-invalid @enderror form-control"
-                               value="{{$pastries->image}}" />
+                               value="{{$pastries->image}}"/>
                         @error('image')
                         <span class="">{{ $message }}</span>
                         @enderror

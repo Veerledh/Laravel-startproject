@@ -47,13 +47,32 @@ class PastriesController extends Controller
         $request->validate([
             'category_id'=>'required',
             'title'=> 'required',
-            'details'=> 'required',
+            'recipe'=> 'required',
             'notes'=>'required',
             'image'=>'required'
         ]);
-        Pastry::create($request->all());
-        return redirect()->route('pastries');
-    }
+        if ($request->hasFile('image')){
+
+            $request->validate([
+                'image' => 'mimes:jpeg,bmp,png'
+            ]);
+
+            $request->file('image')->storePublicly('image', 'public');
+
+            $image = new Pastry([
+                "category_id" => $request->get('category_id'),
+                "title" => $request->get('title'),
+                "recipe" => $request->get('recipe'),
+                "notes" => $request->get('notes'),
+                "image" => $request->file('image')->hashName(),
+            ]);
+
+            $image->save();
+        }
+
+        return redirect()->route('pastries.index');
+
+}
 
     /**
      * Display the specified resource.
@@ -64,7 +83,7 @@ class PastriesController extends Controller
     public function show($id)
     {
         $pastry = $id;
-        return view('pastries.details', ['pastry' => pastry::find($id)]);
+        return view('pastries.details', ['pastry' => Pastry::find($id)]);
     }
 
     /**
@@ -78,7 +97,7 @@ class PastriesController extends Controller
     {
         $pastries = Pastry::where('title', 'like', '%' . $request->other . '%')
             ->orWhere('notes', 'like', '%' . $request->other . '%')
-            ->orWhere('details', 'like', '%' . $request->other . '%')
+            ->orWhere('recipe', 'like', '%' . $request->other . '%')
             ->get();
         $pastryCategories = Category::all();
         return view('pastries', compact('pastries'), ['categories' => $pastryCategories]);
@@ -109,18 +128,20 @@ class PastriesController extends Controller
         $request->validate([
             'category_id'=> 'required',
             'title'=> 'required',
-            'details'=> 'required',
+            'recipe'=> 'required',
             'notes'=>'required',
             'image'=>'required'
         ]);
         $pastries = Pastry::find($id);
         $pastries->category_id =  $request->get('category_id');
         $pastries->title =  $request->get('title');
-        $pastries->details = $request->get('details');
+        $pastries->recipe = $request->get('recipe');
         $pastries->notes = $request->get('notes');
         $pastries->image = $request->get('image');
         $pastries->save();
+
         return redirect('pastries')->with('success', 'pastry edited.');
+
     }
 
     /**

@@ -1,18 +1,14 @@
 @extends('layouts.app')
 @section('content')
-    <table class="table">
-        <tr>
-            <th scope="pastry">Title</th>
-            <th scope="pastry">Notes</th>
-            <th scope="pastry">Details</th>
-            <th scope="pastry">Image</th>
-        </tr>
-        <tr>
-            <td>{{$pastry->title}}</td>
-            <td>{{$pastry->notes}}</td>
-            <td>{{$pastry->details}}</td>
-            <td><img src="{{$pastry->image}}"></td>
-        </tr>
-    </table>
-    <a href="{{route('pastries.index')}}" class="btn btn-dark">Pastries</a>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1>{{$pastry->title}}</h1>
+            <li>{{$pastry->notes}}</li>
+            <li>{{$pastry->recipe}}</li>
+            <br><br>
+            <img src="{{ asset('storage/image/'.$pastry->image) }}" width="500"/>
+            <br><br>
+            <a href="{{route('pastries.index')}}" class="btn btn-dark">Pastries</a>
+        </div>
+    </div>
 @endsection

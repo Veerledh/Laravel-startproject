@@ -14,7 +14,7 @@ class Pastry extends Model
     protected $fillable = [
         'category_id',
         'title',
-        'details',
+        'recipe',
         'notes',
         'image'
     ];

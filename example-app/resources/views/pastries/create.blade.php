@@ -10,7 +10,7 @@
             <a href="{{route('home')}}">Home</a>
             <a href="{{route('pastries.index')}}">pastries</a>
             <div class="card">
-                <form action="{{route('pastries.store')}}" method="post">
+                <form action="{{route('pastries.store')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="m-2">
                         <label for="category_id" class="form-label">Kies een baksel:</label>
@@ -37,13 +37,13 @@
                         @enderror
                     </div>
                     <div class="m-2">
-                        <label for="details" class="form-label">Details</label>
-                        <input id="details"
+                        <label for="recipe" class="form-label">Recept</label>
+                        <input id="recipe"
                                type="text"
-                               name="details"
-                               class="@error('details') is-invalid @enderror form-control"
-                               value="{{ old('details') }}"/>
-                        @error('details')
+                               name="recipe"
+                               class="@error('recipe') is-invalid @enderror form-control"
+                               value="{{ old('recipe') }}"/>
+                        @error('recipe')
                         <span class="">{{ $message }}</span>
                         @enderror
                     </div>
@@ -60,8 +60,8 @@
                     </div>
                     <div class="m-2">
                         <label for="image" class="form-label">image</label>
-                        <input id="image"
-                               type="text"
+                        <input id="file"
+                               type="file"
                                name="image"
                                class="@error('image') is-invalid @enderror form-control"
                                value="{{ old('image') }}"/>
